@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>주문서</title>
+    <!-- 토스페이먼츠 결제위젯 SDK -->
+    <script src="https://js.tosspayments.com/v1/payment-widget"></script>
+</head>
+<body>
+    <h1>주문서</h1>
+    <div id="payment-widget"></div>
+    <button id="payment-button">결제하기</button>
+
+    <script>
+        const clientKey = '테스트_클라이언트키'; // 실제 발급받은 clientKey로 교체
+        const paymentWidget = PaymentWidget(clientKey, '{{ customer_key }}');
+
+        paymentWidget.renderPaymentMethods('#payment-widget', {
+            value: "{{ amount }}",
+            currency: 'KRW',
+            orderId: "{{ order_id }}",
+            orderName: "{{ order_name }}",
+            customerName: "{{ customer_name }}"
+        });
+
+        document.getElementById('payment-button').addEventListener('click', function () {
+            paymentWidget.requestPayment();
+        });
+    </script>
+</body>
+</html>
